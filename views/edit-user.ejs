@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>User Edit</title>
+    <link rel="stylesheet" href="/css/register.css" />
+    <link rel="stylesheet" href="/css/style.css" />
+  </head>
+  <body>
+    <div class="form_wrapper">
+      <div class="form_container">
+        <div class="title_container">
+          <h2>User Edit Form</h2>
+        </div>
+        <div class="row clearfix">
+          <div class="">
+            <form method="post" id="update_user">
+              <div class="row clearfix">
+                <div class="col_half">
+                  <div class="input_field">
+                    <span><i aria-hidden="true" class="fa fa-user"></i></span>
+                    <input
+                      type="text"
+                      name="first_name"
+                      id="first_name"
+                      placeholder="First Name"
+                      value="<%= data.first_name %>"
+                    />
+                  </div>
+                </div>
+                <div class="col_half">
+                  <div class="input_field">
+                    <span><i aria-hidden="true" class="fa fa-user"></i></span>
+                    <input
+                      type="text"
+                      name="last_name"
+                      id="last_name"
+                      placeholder="Last Name"
+                      value="<%= data.last_name %>"
+                      required
+                    />
+                  </div>
+                </div>
+              </div>
+              <div class="input_field">
+                <span><i aria-hidden="true" class="fa fa-envelope"></i></span>
+                <input
+                  type="email"
+                  name="email"
+                  id="email"
+                  placeholder="Email"
+                  value="<%= data.email %>"
+                  required
+                />
+              </div>
+              <div class="input_field">
+                <span><i aria-hidden="true" class="fa fa-envelope"></i></span>
+                <input
+                  type="text"
+                  name="username"
+                  id="username"
+                  placeholder="Username"
+                  value="<%= data.user %>"
+                  required
+                />
+              </div>
+
+              <div class="input_field">
+                <span><i aria-hidden="true" class="fa fa-lock"></i></span>
+                <input
+                  id="password"
+                  type="password"
+                  name="password"
+                  placeholder="Password"
+                  value="<%= data.pass %>"
+                  required
+                />
+              </div>
+              <div class="input_field">
+                <span><i aria-hidden="true" class="fa fa-lock"></i></span>
+                <input
+                  id="confirm_password"
+                  type="password"
+                  name="confirm_password"
+                  placeholder="Re-type Password"
+                  value="<%= data.pass %>"
+                  required
+                />
+              </div>
+              <span id="message"></span>
+              <div class="input_field">
+                <span><i aria-hidden="true" class="fa fa-envelope"></i></span>
+                <input
+                  type="text"
+                  name="phone"
+                  id="phone"
+                  placeholder="Phone"
+                  value="<%= data.phone %>"
+                  required
+                />
+              </div>
+
+              <div>
+                <label for="start">Date of Birth :</label>
+                <input
+                  type="date"
+                  id="birth"
+                  name="birth"
+                  value="<%=tgl%>"
+                  min="1970-01-31"
+                  max="2010-01-01"
+                />
+              </div>
+
+              <div class="input_field radio_option">
+                <input type="radio" name="gender" id="rd1" value="male" <%=
+                data.gender == "male"?'checked':'' %>/>
+                <label for="rd1">Male</label>
+                <input type="radio" name="gender" id="rd2" value="female" <%=
+                data.gender == "female"?'checked':'' %>/>
+                <label for="rd2">Female</label>
+              </div>
+              <!-- <%= data.gender %> -->
+              <div class="input_field">
+                <span><i aria-hidden="true" class="fa fa-envelope"></i></span>
+                <input
+                  type="text"
+                  name="address"
+                  id="address"
+                  placeholder="Address"
+                  value="<%= data.address %>"
+                  required
+                />
+              </div>
+              <input
+                id="myBtn"
+                class="button"
+                type="submit"
+                value="Update Profile"
+              />
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p class="credit">
+      Developed by <a href="/" target="_blank">Traditional Game</a>
+    </p>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script>
+      console.log("<%=tgl%>");
+      $("#password, #confirm_password").on("keyup", function () {
+        if ($("#password").val() === $("#confirm_password").val()) {
+          $("#message").html("Matching").css("color", "green");
+          document.getElementById("myBtn").disabled = true;
+        } else {
+          $("#message").html("Not Matching").css("color", "red");
+          document.getElementById("myBtn").disabled = false;
+        }
+      });
+
+      $("#update_user").submit((event) => {
+        event.preventDefault();
+        // console.log(document.getElementById("rd1").value);
+        // Simple PUT request with a JSON body using fetch
+        let gender = document.getElementsByName("gender");
+        const requestOptions = {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            first_name: document.getElementById("first_name").value,
+            last_name: document.getElementById("last_name").value,
+            email: document.getElementById("email").value,
+            username: document.getElementById("username").value,
+            pass: document.getElementById("password").value,
+            birth: document.getElementById("birth").value,
+            phone: document.getElementById("phone").value,
+            address: document.getElementById("address").value,
+            gender: gender[0].checked ? "male" : "female",
+          }),
+        };
+        fetch("/api/users/<%= data.id %>", requestOptions)
+          .then((response) => response.json())
+          .then((data) => {
+            alert(data.alert);
+          });
+      });
+    </script>
+  </body>
+</html>

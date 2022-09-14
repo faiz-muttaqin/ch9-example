@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/style.css" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css"
+      integrity="sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <title>RPS GAME</title>
+  </head>
+
+  <body>
+    <div class="main">
+      <!-- START SCREEN CODE START --><!-- START SCREEN CODE START --><!-- START SCREEN CODE START -->
+      <div class="startScreen">
+        <div class="gameplayChoices" id="gameplayChoices">
+          <button id="openCreateRoomBox" class="btn btn-lg mt-2 col-4">
+            Create Room
+          </button>
+          <button id="openJoinRoomBox" class="btn btn-lg mt-2 col-4">
+            Join Room
+          </button>
+          <a href="/games" style="text-decoration: none">
+            <button id="openVsComRoomBox" class="btn btn-lg mt-2 col-4">
+              vs Computer
+            </button>
+          </a>
+        </div>
+
+        <!-- create room -->
+        <div class="createRoomBox mt-2" id="createRoomBox">
+          <div class="row">
+            <input
+              type="text"
+              id="roomIdInput"
+              class="form-control"
+              style="border: none"
+              placeholder="Create Room ID"
+            />
+            <button id="createRoomBtn" class="btn">Create</button>
+          </div>
+
+          <button id="cancelCreateActionBtn" class="cancel-action btn">
+            Cancel
+          </button>
+        </div>
+        <!-- create room -->
+
+        <!-- Join Room -->
+        <div class="joinBoxRoom mt-2" id="joinBoxRoom">
+          <div class="join-with-id">
+            <div class="row">
+              <input
+                type="text"
+                id="joinRoomInput"
+                class="form-control"
+                style="border: none"
+                placeholder="Input Room ID"
+              />
+              <button id="joinRoomBtn" class="btn">Join</button>
+            </div>
+            <button id="cancelJoinActionBtn" class="cancel-action btn">
+              Cancel
+            </button>
+          </div>
+
+          <button class="joinRandomBtn btn" id="joinRandomBtn">
+            Join Random
+          </button>
+        </div>
+        <!-- JoinRoom -->
+
+        <div class="errorMessage" id="errorMessage"></div>
+      </div>
+      <!-- START SCREEN CODE END --><!-- START SCREEN CODE END --><!-- START SCREEN CODE END -->
+
+      <div id="mainGP">
+        <div class="MainContent">
+          <div class="Player1">
+            <!-- player 1 -->
+            <span class="player">
+              <span class="dot" id="playerOne"></span> YOU :
+              <span id="myScore">0</span>
+            </span>
+            <button id="rock" class="optionBtnP1">
+              <img src="img/batu.png" alt="batu" class="optionP1" />
+            </button>
+            <button id="paper" class="optionBtnP1">
+              <img src="img/kertas.png" alt="batu" class="optionP1" />
+            </button>
+            <button id="scissor" class="optionBtnP1">
+              <img src="img/gunting.png" alt="batu" class="optionP1" />
+            </button>
+            <h6 id="playerName"></h6>
+          </div>
+
+          <div class="midcontainer">
+            <div class="waitMessage" id="waitMessage"></div>
+            <h1 id="VStext">VS</h1>
+            <div id="P1Win">YOU WIN</div>
+            <div id="ComWin">YOU LOSE</div>
+            <div id="Draw">DRAW</div>
+          </div>
+          <div class="Player1">
+            <!-- player2 -->
+            <span class="player">
+              <span class="dot" id="playerTwo"></span> ENEMY :
+              <span id="enemyScore">0</span></span
+            >
+            <button id="rock2" class="optionBtnCom">
+              <img src="img/batu.png" alt="batu" class="optionP1" />
+            </button>
+            <button id="paper2" class="optionBtnCom">
+              <img src="img/kertas.png" alt="kertas" class="optionP1" />
+            </button>
+            <button id="scissor2" class="optionBtnCom">
+              <img src="img/gunting.png" alt="gunting" class="optionP1" />
+            </button>
+            <h6 id="enemyName" class="align-self-center">waiting....</h6>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Header -->
+    <div class="gameTitle">
+      <a class="GPBackLink" id="GPBackLink">&lt;</a>
+      <img id="GPlogo" src="img/gamePLogo.png" alt="logoLamanGame" />
+      <h3 id="gamePjudul">ROCK PAPER SCRISSORS</h3>
+    </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+      let dataUser = getCookie("user-data");
+      if (dataUser == null) {
+        alert("You Haven't logged in yet...");
+        window.location.href = "/login";
+      } else {
+        document.getElementById("playerName").innerHTML = `${
+          JSON.parse(getCookie("user-data"))[0].user
+        }`;
+      }
+      function getCookie(name) {
+        var nameEQ = name + "=";
+        var ca = document.cookie.split(";");
+        for (var i = 0; i < ca.length; i++) {
+          var c = ca[i];
+          while (c.charAt(0) == " ") c = c.substring(1, c.length);
+          if (c.indexOf(nameEQ) == 0)
+            return c.substring(nameEQ.length, c.length);
+        }
+        return null;
+      }
+      // JSON.parse(getCookie("user-data"))[0].user
+      const socket = io();
+
+      // DOM Elements
+      const openCreateRoomBox = document.getElementById("openCreateRoomBox");
+      const openJoinRoomBox = document.getElementById("openJoinRoomBox");
+      const createRoomBox = document.getElementById("createRoomBox");
+      const roomIdInput = document.getElementById("roomIdInput");
+      const cancelCreateActionBtn = document.getElementById(
+        "cancelCreateActionBtn"
+      );
+      const gameplayChoices = document.getElementById("gameplayChoices");
+      const createRoomBtn = document.getElementById("createRoomBtn");
+      const mainGP = document.getElementById("mainGP");
+      const startScreen = document.querySelector(".startScreen");
+      const cancelJoinActionBtn = document.getElementById(
+        "cancelJoinActionBtn"
+      );
+      const joinBoxRoom = document.getElementById("joinBoxRoom");
+      const joinRoomBtn = document.getElementById("joinRoomBtn");
+      const joinRoomInput = document.getElementById("joinRoomInput");
+      const joinRandomBtn = document.getElementById("joinRandomBtn");
+      const errorMessage = document.getElementById("errorMessage");
+      const playerOne = document.getElementById("playerOne"); // mengubah titik merah P1 menjadi hijau
+      const playerTwo = document.getElementById("playerTwo"); // mengubah titik merah P2 menjadi hijau
+      const waitMessage = document.getElementById("waitMessage");
+      const rock = document.getElementById("rock");
+      const paper = document.getElementById("paper");
+      const scissor = document.getElementById("scissor");
+      const rock2 = document.getElementById("rock2");
+      const paper2 = document.getElementById("paper2");
+      const scissor2 = document.getElementById("scissor2");
+      const myScore = document.getElementById("myScore");
+      const enemyScore = document.getElementById("enemyScore");
+      const enemyName = document.getElementById("enemyName");
+      const GPBackLink = document.getElementById("GPBackLink");
+
+      //  Game variables
+      let canChoose = false;
+      let playerOneConnected = false;
+      let playerTwoIsConnected = false;
+      let playerId = 0;
+      let myChoice = "";
+      let enemyChoice = "";
+      let roomId = "";
+      let myScorePoints = 0;
+      let enemyScorePoints = 0;
+      let userVSRoom = [];
+      let BGK = "";
+      let leaveRoom = 1;
+
+      // btn to show create room
+      openCreateRoomBox.addEventListener("click", function () {
+        gameplayChoices.style.display = "none";
+        createRoomBox.style.display = "block";
+      });
+      // btn to cancel SHOW create room
+      cancelCreateActionBtn.addEventListener("click", function () {
+        gameplayChoices.style.display = "block";
+        createRoomBox.style.display = "none";
+        errorMessage.style.display = "none";
+      });
+      // btn to create room dengan input
+      createRoomBtn.addEventListener("click", function () {
+        let id = [
+          roomIdInput.value,
+          JSON.parse(getCookie("user-data"))[0].user,
+        ];
+        errorMessage.style.display = "none";
+        socket.emit("create-room", id);
+      });
+      // btn to show create JOIN room
+      openJoinRoomBox.addEventListener("click", function () {
+        gameplayChoices.style.display = "none";
+        joinBoxRoom.style.display = "block";
+      });
+      // btn to cancel show create JOIN room
+      cancelJoinActionBtn.addEventListener("click", function () {
+        gameplayChoices.style.display = "block";
+        joinBoxRoom.style.display = "none";
+        errorMessage.style.display = "none";
+      });
+
+      // btn to JOIN ROOM
+      joinRoomBtn.addEventListener("click", function () {
+        let id = [
+          joinRoomInput.value,
+          JSON.parse(getCookie("user-data"))[0].user,
+        ]; // ambil data dari input join room
+        errorMessage.style.display = "none"; // set error message gone
+        socket.emit("join-room", id); // send data input join room ke server
+      });
+      // btn to JOIN RANDOM ROOM
+      joinRandomBtn.addEventListener("click", function () {
+        const username = JSON.parse(getCookie("user-data"))[0].user;
+        errorMessage.style.display = "none"; // set error message gone
+        socket.emit("join-random", username); // send data join random room ke server
+      });
+      // btn when CLICK ROCK
+      rock.addEventListener("click", function () {
+        if (
+          canChoose &&
+          myChoice === "" &&
+          playerOneConnected &&
+          playerTwoIsConnected
+        ) {
+          myChoice = "rock";
+          choose(myChoice);
+          socket.emit("make-move", { playerId, myChoice, roomId });
+        }
+      });
+      // btn when CLICK PAPER
+      paper.addEventListener("click", function () {
+        if (
+          canChoose &&
+          myChoice === "" &&
+          playerOneConnected &&
+          playerTwoIsConnected
+        ) {
+          myChoice = "paper";
+          choose(myChoice);
+          socket.emit("make-move", { playerId, myChoice, roomId });
+        }
+      });
+      // btn when CLICK GUNTING
+      scissor.addEventListener("click", function () {
+        if (
+          canChoose &&
+          myChoice === "" &&
+          playerOneConnected &&
+          playerTwoIsConnected
+        ) {
+          myChoice = "scissor";
+          choose(myChoice);
+          socket.emit("make-move", { playerId, myChoice, roomId });
+        }
+      });
+
+      // Socket
+      // dijalankan bila user P1 mginput userId yg sudah ada/room join tidak ada/penuh
+      socket.on("display-error", (error) => {
+        errorMessage.style.display = "block";
+        let p = document.createElement("p");
+        p.innerHTML = error;
+        errorMessage.appendChild(p);
+      });
+
+      //saat room telah terbentuk di server maka di feedback ke client SBB :
+      socket.on("room-created", (id) => {
+        playerId = 1;
+        roomId = id;
+        leaveRoom = 2;
+        startScreen.style.display = "none"; // menset start screen tak terlihat
+        mainGP.style.display = "flex"; // menset game screen terlihat
+        setWaitMessage(true);
+      });
+
+      // saat semua sudah join/P2 join
+      socket.on("room-joined", (id) => {
+        playerId = 2;
+        roomId = id;
+        leaveRoom = 2;
+        playerOneConnected = true;
+        playerJoinTheGame(1); //merubah titik merah P1 menjadi hijau di screen P2
+        setWaitMessage(false); // menghapus wait message
+        startScreen.style.display = "none"; //menghapus display start screen
+        mainGP.style.display = "flex"; //munculkan display start screen
+      });
+
+      // bila berhasil create maka di jalankan :
+      socket.on("player-1-connected", (userRoom) => {
+        console.log(userRoom[0], userRoom[1]);
+        playerJoinTheGame(1); // saat berhasil create, run funct ini untuk merubah titik merah menjadi hijau
+        playerOneConnected = true; // menyimpan sementara bahwa P1 terkoneksi
+      });
+
+      //bila berhasil join maka :
+      socket.on("player-2-connected", (userRoom) => {
+        console.log(userRoom[0], userRoom[1]);
+        playerJoinTheGame(2); // saat berhasil create, run funct ini untuk merubah titik merah menjadi hijau
+        playerTwoIsConnected = true; // menyimpan sementara bahwa P2 terkoneksi
+        canChoose = true; // pilihan menjadi aktif
+        setWaitMessage(false); // menghapus wait message
+        userVSRoom = userRoom;
+        if (playerId === 1) {
+          enemyName.innerHTML = userRoom[1];
+        } else if (playerId === 2) {
+          enemyName.innerHTML = userRoom[0];
+        } else {
+          enemyName.innerHTML = "Waiting...";
+        }
+      });
+
+      //saat player 1 disconect maka reset
+      socket.on("player-1-disconnected", () => {
+        reset();
+      });
+
+      //saat player 2 disconect maka :
+      socket.on("player-2-disconnected", () => {
+        canChoose = false;
+        playerTwoLeftTheGame();
+        setWaitMessage(true);
+        enemyScorePoints = 0;
+        myScorePoints = 0;
+        displayScore();
+      });
+
+      socket.on("draw", (message) => {
+        enemyChoose(enemyChoice);
+        document.getElementById("VStext").style.display = "none";
+        document.getElementById("Draw").style.display = "flex";
+        saveToDataBase(0, 1, 0, enemyChoice, enemyChoice);
+      });
+
+      socket.on("player-1-wins", ({ myChoice, enemyChoice }) => {
+        document.getElementById("VStext").style.display = "none";
+        if (playerId === 1) {
+          enemyChoose(myChoice);
+          saveToDataBase(1, 0, 0, enemyChoice, myChoice);
+          document.getElementById("P1Win").style.display = "flex";
+          myScorePoints++;
+        } else {
+          enemyChoose(enemyChoice);
+          saveToDataBase(0, 0, 1, myChoice, enemyChoice);
+          document.getElementById("ComWin").style.display = "flex";
+          enemyScorePoints++;
+        }
+
+        displayScore();
+      });
+
+      socket.on("player-2-wins", ({ myChoice, enemyChoice }) => {
+        document.getElementById("VStext").style.display = "none";
+        if (playerId === 2) {
+          enemyChoose(enemyChoice);
+          saveToDataBase(1, 0, 0, myChoice, enemyChoice);
+          document.getElementById("P1Win").style.display = "flex";
+          myScorePoints++;
+        } else {
+          enemyChoose(myChoice);
+          saveToDataBase(0, 0, 1, enemyChoice, myChoice);
+          document.getElementById("ComWin").style.display = "flex";
+          enemyScorePoints++;
+        }
+
+        displayScore();
+      });
+
+      // Functions
+      function playerJoinTheGame(playerId) {
+        if (playerId === 1) {
+          playerOne.classList.add("connected"); // merubah titik merah menjadi hijau
+        } else {
+          playerTwo.classList.add("connected");
+        }
+      }
+
+      function setWaitMessage(display) {
+        if (display) {
+          let p = document.createElement("p");
+          p.innerHTML = `Invite Other Player with this RoomID : ${roomId} <br> 
+          Waiting for another player to join...`;
+          waitMessage.appendChild(p);
+        } else {
+          waitMessage.innerHTML = "";
+        }
+      }
+
+      function reset() {
+        canChoose = false;
+        playerOneConnected = false;
+        playerTwoIsConnected = false;
+        startScreen.style.display = "block";
+        gameplayChoices.style.display = "block";
+        mainGP.style.display = "none";
+        joinBoxRoom.style.display = "none";
+        createRoomBox.style.display = "none";
+        playerTwo.classList.remove("connected");
+        playerOne.classList.remove("connected");
+        myScorePoints = 0;
+        enemyScorePoints = 0;
+        displayScore();
+        setWaitMessage(true);
+        resetVS();
+        removeEnemyChoice();
+      }
+
+      function playerTwoLeftTheGame() {
+        playerTwoIsConnected = false;
+        playerTwo.classList.remove("connected");
+      }
+
+      function displayScore() {
+        myScore.innerText = myScorePoints;
+        enemyScore.innerText = enemyScorePoints;
+      }
+
+      function choose(choice) {
+        if (choice === "rock") {
+          rock.style.backgroundColor = "#C4C4C4";
+        } else if (choice === "paper") {
+          paper.style.backgroundColor = "#C4C4C4";
+        } else {
+          scissor.style.backgroundColor = "#C4C4C4";
+        }
+        canChoose = false;
+      }
+
+      function removeChoice(choice) {
+        if (choice === "rock") {
+          rock.style.backgroundColor = "transparent";
+        } else if (choice === "paper") {
+          paper.style.backgroundColor = "transparent";
+        } else {
+          scissor.style.backgroundColor = "transparent";
+        }
+        canChoose = true;
+        myChoice = "";
+      }
+
+      function enemyChoose(choice) {
+        if (choice === "rock") {
+          rock2.style.backgroundColor = "#C4C4C4";
+        } else if (choice === "paper") {
+          paper2.style.backgroundColor = "#C4C4C4";
+        } else {
+          scissor2.style.backgroundColor = "#C4C4C4";
+        }
+        // canChoose = false;
+      }
+
+      function iconChoose(enemyChoice) {
+        if (enemyChoice === "rock") {
+          BGK = "✊";
+        } else if (enemyChoice === "paper") {
+          BGK = "✋";
+        } else {
+          BGK = "✌";
+        }
+        return BGK;
+      }
+      function removeEnemyChoice() {
+        rock2.style.backgroundColor = "transparent";
+        paper2.style.backgroundColor = "transparent";
+        scissor2.style.backgroundColor = "transparent";
+      }
+      function resetVS() {
+        document.getElementById("VStext").style.display = "flex";
+        document.getElementById("P1Win").style.display = "none";
+        document.getElementById("ComWin").style.display = "none";
+        document.getElementById("Draw").style.display = "none";
+      }
+
+      function saveToDataBase(win, draw, lose, choice1, choice2) {
+        let timestamp = Date.now();
+        let userCookie = getCookie("user-data");
+        let user = JSON.parse(getCookie("user-data"))[0].user;
+        let oponent = "";
+        let WLD = win == 1 ? "(WIN)" : draw == 1 ? "(DRAW)" : "(LOSE)";
+        let scheme = `YOU ${iconChoose(choice1)} 
+          vs ENEMY ${iconChoose(choice2)} ${WLD}`;
+        if (userVSRoom[1] === user) {
+          oponent = userVSRoom[0];
+        } else if (userVSRoom[0] === user) {
+          oponent = userVSRoom[1];
+        } else {
+          oponent = "unknown";
+        }
+        fetch(`/games/${JSON.parse(userCookie)[0]._id}`, {
+          method: "post",
+          headers: { "Content-type": "application/json" },
+          body: JSON.stringify({
+            user: user,
+            win: win,
+            draw: draw,
+            lose: lose,
+            scheme: scheme,
+            oponent: oponent,
+            timestamp: timestamp,
+          }),
+        })
+          .then((response) => {
+            return response.json();
+          })
+          .then((result) => {
+            console.log(scheme);
+          })
+          .catch((error) => console.log(error));
+
+        //reset player choice
+        setTimeout(() => {
+          removeChoice(myChoice);
+          removeEnemyChoice();
+          resetVS();
+        }, 2500);
+      }
+      GPBackLink.addEventListener("click", function () {
+        if (mainGP.style.display === "flex" && leaveRoom === 2) {
+          if (confirm("Are you  sure to leave this game room?")) {
+            window.location.reload();
+          }
+        } else {
+          window.location.href = "/";
+        }
+      });
+    </script>
+  </body>
+</html>

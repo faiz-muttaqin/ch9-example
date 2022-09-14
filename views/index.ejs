@@ -1,0 +1,464 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
+  <title>TRADITIONAL</title>
+
+  <!-- Private CSS -->
+  <link rel="stylesheet" href="./css/style.css">
+
+</head>
+
+<body>
+  <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark2">
+    <div class="container">
+      <!-- NAVBAR -->
+      <a class="navbar-brand" href="#">
+        <img src="img/logo2.webp" width="30" height="30" class="d-inline-block align-top" alt="">
+        TRADITIONAL GAME
+      </a>
+
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
+        aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse row" id="navbarNavAltMarkup">
+        <div class="col col-lg-2"></div>
+        <div class="navbar-nav col-md-auto">
+          <a class="nav-link active " aria-current="page" href="#main">HOME</a>
+          <a class="nav-link" href="#features">WORK</a>
+          <a class="nav-link" href="#footer">CONTACT</a>
+          <a class="nav-link" href="#about">ABOUT ME</a>
+        </div>
+        <div class="col"></div>
+        <div class="col"></div>
+        <div class="navbar-nav col">
+          <a id="userprofile" href=""><button type="button" class="btn btn-warning">User Profile</button></a>
+          <a id="admin" href="/users"><button type="button" class="btn btn-warning">User Management</button></a>
+          <a id="register" class="nav-link"
+            href="/register">REGISTER</a>
+          <a id="logIn"class="nav-link"
+            href="/login">LOGIN</a>
+          <a id="username" href="#" class="nav-link"></a>
+          <a id="logOut" href="#" onclick="logOut()" class="nav-link">LOG OUT</a>
+
+        </div>
+
+      </div>
+
+    </div>
+  </nav>
+
+  <!-- MAIN LANDING PAGE -->
+  <div id="main">
+    <div class="content text-center">
+      <h1 class="text-white display-4 fw-bold mrgn-bottom">PLAY TRADITIONAL GAME</h1>
+      <h1 class="text-white fs-5 mrgn-bottom">Experience New Traditional Game Play</h1>
+
+      <button type="button" onclick="playNow()" class="btn btn-warning fw-bold mainBtn">PLAY NOW</button>
+
+      <a href="#about">
+        <h6 class="thestory">THE STORY</h6>
+        <i class="fa-solid fa-chevron-down arowdown"></i>
+      </a>
+
+    </div>
+  </div>
+
+  <!-- SECOND PAGE -->
+  <div id="about">
+    <div class="layer">
+      <div class="container" id="aboutP">
+        <div class="aboutC1">
+          <h1 class="text-white fs-4">What's so special? </h1>
+          <h1 class="text-white display-4 mrgn-bottom">THE GAMES</h1>
+        </div>
+        <div class="aboutC2">
+          <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-indicators">
+              <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active"
+                aria-current="true" aria-label="Slide 1"></button>
+              <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"
+                aria-label="Slide 2"></button>
+              <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"
+                aria-label="Slide 3"></button>
+            </div>
+            <div class="carousel-inner">
+              <div class="carousel-item active">
+                <img src="img/rock-img.jpeg" class="d-block w-100" alt="rock-img">
+              </div>
+              <div class="carousel-item">
+                <img src="img/rock2-img.jpeg" class="d-block w-100" alt="second-img">
+              </div>
+              <div class="carousel-item">
+                <img src="img/rock3-img.jpg" class="d-block w-100" alt="third-img">
+              </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
+              data-bs-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"
+              data-bs-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Next</span>
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+  <!-- THIRD PAGE -->
+  <div id="features">
+    <div  id="featuresItem">
+      <h1 class="text-white fs-4">What's so special? </h1>
+      <h1 class="text-white display-4 mrgn-bottom">FEATURES</h1>
+      <div class="accordion accordion-flush acordParentSet" id="accordionFlushExample">
+        <div class="accordion-item bg-x">
+
+          <h2 class="accordion-header " id="flush-headingOne">
+            <button class="accordion-button bg-x text-warning fs-4 cicrldspear" type="button" data-bs-toggle="collapse"
+              data-bs-target="#flush-collapseOne" aria-expanded="true" aria-controls="flush-collapseOne">
+              <div class="accordCircleNonActiv"></div>
+              TRADITIONAL GAMES
+
+            </button>
+          </h2>
+          <div id="flush-collapseOne" class="accordion-collapse collapse show" aria-labelledby="flush-headingOne"
+            data-bs-parent="#accordionFlushExample">
+            <div class="accordCircleActiv"></div>
+            <div class="accordLeftLine"></div>
+            <div class="accordion-body text-white accordItemSet">If you miss your childhood, we provide many traditional
+              games here
+            </div>
+          </div>
+        </div>
+        <div class="accordion-item bg-x">
+          <h2 class="accordion-header" id="flush-headingTwo">
+
+            <button class="accordion-button collapsed bg-x text-warning fs-4 cicrldspear" type="button"
+              data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false"
+              aria-controls="flush-collapseTwo">
+              <div class="accordCircleNonActiv"></div>
+              GAME SUIT
+            </button>
+          </h2>
+          <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo"
+            data-bs-parent="#accordionFlushExample">
+            <div class="accordCircleActiv"></div>
+            <div class="accordLeftLine"></div>
+            <div class="accordion-body text-white accordItemSet">If you miss your childhood game suit, we provide many
+              games suit here
+            </div>
+          </div>
+        </div>
+        <div class="accordion-item bg-x">
+          <h2 class="accordion-header" id="flush-headingThree">
+
+            <button class="accordion-button collapsed bg-x text-warning fs-4 cicrldspear" type="button"
+              data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false"
+              aria-controls="flush-collapseThree">
+              <div class="accordCircleNonActiv"></div>
+              TBD
+            </button>
+          </h2>
+          <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingThree"
+            data-bs-parent="#accordionFlushExample">
+            <div class="accordCircleActiv"></div>
+            <div class="accordLeftLine"></div>
+            <div class="accordion-body text-white accordItemSet">If you miss your childhood TBD game, we provide many
+              TBD games here
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+
+
+  <!-- FOURTH PAGE -->
+  <div class="fourth-image w-100 vh-100 d-flex container-fluid " id="sysreq">
+    <h1 class="text-white fs-6 canMyCom">Can My Computer Run This Game? </h1>
+    <div class="container w-100">
+
+      <div class="align-items-start contentPage4">
+        <h1 class="text-white font4">SYSTEM</h1>
+        <h1 class="text-white font4">REQUIREMENTS</h1>
+
+        <table class="table table-bordered">
+          <tbody>
+            <tr>
+              <td>
+                <h1 class="text-warning fs-5">OS :</h1>
+                <h1 class="text-white fs-6">Windows 7 64-bit only (No OSX support at this time)</h1>
+              </td>
+              <td>
+                <h1 class="text-warning fs-5">PROCESSOR :</h1>
+                <h1 class="text-white fs-6">Intel Core 2 Duo @ 2.4 GHZ or AMD Athlon X2 @ 2.8 GHZ</h1>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <h1 class="text-warning fs-5">MEMORY :</h1>
+                <h1 class="text-white fs-6">4 GB RAM</h1>
+              </td>
+              <td>
+                <h1 class="text-warning fs-5">STORAGE :</h1>
+                <h1 class="text-white fs-6">8 GB Avalible Space</h1>
+              </td>
+            </tr>
+            <tr>
+              <td colspan="2">
+                <h1 class="text-warning fs-5">GRAPHICS :</h1>
+                <h1 class="text-white fs-6">NVIDIA GeForce GTX 660 2GB or AMD Radeon HD 7850 2GB DirectX11 (Shader Model 5)</h1>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+
+
+  </div>
+
+  <!-- FIFTH PAGE -->
+  <div class="fifth-image w-100 vh-100" id="quotes">
+    <div id="rowBP">
+      <div class="kolom1">
+        <div class="text-start">
+          <h1 class="text-white display-4 mrgn-bottom">TOP SCORES</h1>
+          <h1 class="text-white fs-6 mrgn-bottom">This top score from various games provided on this platform</h1>
+
+          <div class="d-grid gap-2 col-4 ">
+            <button type="button" class="btn btn-warning">see more</button>
+          </div>
+        </div>
+      </div>
+      <div class="kolom2 ">
+        <div class="card text-white bg-dark scoreCard1">
+          <div class="profilPictureDecor"></div>
+          <div class="card-body ">
+            <a href="https://twitter.com/ELahti" class="noUdrl" target="_blank">
+              <div class="cardHeader">
+                
+                <img class="profilPicture rounded-circle" src="img/userPic1.png" alt="Profil Picture">
+                <div class="titlenSub">
+                  <h5 class="card-title cdTitle text-warning">Evan Lahti</h5>
+                  <h6 class="card-s cdSubt">PC Gamer</h6>
+                </div>
+                <div class="col"></div>
+                <i class="TwitLogo fa-brands fa-twitter"></i>
+              </div>
+            </a>
+            <p class="card-text">“One of my gaming highlights of the year.”</p>
+            <h6 class="dateText">June 18, 2021</h6>
+          </div>
+
+        </div>
+
+        <div class="card text-white bg-dark scoreCard2">
+          <div class="profilPictureDecor2"></div>
+          <div class="card-body ">
+            <a href="https://twitter.com/jadagriffinnn" class="noUdrl" target="_blank">
+              <div class="cardHeader">
+                <img class="profilPicture rounded-circle" src="img/userPic2.png" alt="Profil Picture">
+                <div class="titlenSub">
+                  <h5 class="card-title cdTitle text-warning">Jada Griffin</h5>
+                  <h6 class="card-s cdSubt">Nerdreactor</h6>
+                </div>
+                <div class="col"></div>
+                <i class="TwitLogo fa-brands fa-twitter"></i>
+              </div>
+            </a>
+            <p class="card-text">“The next big thing in the world of streaming and survival games.”</p>
+            <h6 class="dateText">July 10, 2021</h6>
+          </div>
+
+        </div>
+
+        <div class="card text-white bg-dark scoreCard3">
+          <div class="profilPictureDecor2"></div>
+          <div class="card-body ">
+            <a href="https://twitter.com/ajwilliams23" class="noUdrl" target="_blank">
+              <div class="cardHeader">
+                <img class="profilPicture rounded-circle" src="img/userPic3.png" alt="Profil Picture">
+                <div class="titlenSub">
+                  <h5 class="card-title cdTitle text-warning">Aaron Williams</h5>
+                  <h6 class="card-s cdSubt">Uproxx</h6>
+                </div>
+                <div class="col"></div>
+                <i class="TwitLogo fa-brands fa-twitter"></i>
+              </div>
+
+            </a>  
+            <p class="card-text">“Snoop Dogg Playing The Wildly Entertaining ‘SOS’ Is Ridiculous.”</p>
+            <h6 class="dateText">December 24, 2018</h6>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER PAGE  -->
+  <!-- add bg-blk -->
+  <div class="container-fluid w-100 vh-100 bg-blk text-white" id="footer">
+    <div class="container w-100 vh-100 bg-blk text-white ">
+      <footer class="py-5">
+        <div class="footerContent">
+          <div class="footerDivCol">
+            <ul class="nav flex-column">
+              <img src="img/award.png" alt="Award Picture" id="footerimage">
+            </ul>
+          </div>
+
+          <div class="footerSubCont">
+            <form>
+              <h6>Want to stay in touch?</h6>
+              <h1 class="scrbtext">NEWSLETTER</h1>
+              <h1 class="scrbtext">SUBSCRIBE</h1>
+              <p>In order to start receiving our news, all you have to do is enter your email address. Everything else
+                will be taken care of by us. We will send you emails containing information about game. We don’t spam.
+              </p>
+              <div class="gap-2 FooterMailDiv">
+                <div class="form__group field">
+                  <input type="email" class="form__field text-warning" placeholder="Name" name="email" id='name'
+                    required />
+                  <label for="name" class="form__label">Your Email Address</label>
+                </div>
+                <button class="btn btn-warning footerbutton" type="button">Subscribe Now</button>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <div class="d-flex footermedscon">
+          <a class="link-light nodec" href="#main">MAIN</i>
+            <a class="link-light nodec" href="#about">ABOUT</i></a>
+            <a class="link-light nodec" href="#features">GAME FEATURES</i></a>
+            <a class="link-light nodec" href="#sysreq">SYSTEM REQUIREMENTS</a>
+            <a class="link-light nodec" href="#quotes">QUOTES</a>
+
+            <a class="link-light" href="https://www.facebook.com/"><i
+              class="fa-brands fa-facebook-square footerFB"></i></a>
+              <a class="link-light" href="https://twitter.com/"><i
+                class="fa-brands fa-twitter footertwit"></i></a>
+                <a class="link-light" href="https://www.youtube.com/"><i
+                  class="fa-brands fa-youtube footerYT"></i></a>
+                  <a class="link-light" href="https://www.twitch.tv/"><i
+                    class="fa-brands fa-twitch footerTC"></i></a>
+        </div>
+
+        <div class="py-4 my-3 border-top footerLastList">
+          <p>© 2018 Your Games, Inc. All rights reserved.</p>
+          <ul class="list-unstyled d-flex footerPTC">
+            <li class="ms-3"><a class="link-light nodec" href="https://en.wikipedia.org/wiki/Privacy_policy">
+                <p>Privacy Policy</p>
+              </a></li>
+            <li class="ms-3 nodec"> | </li>
+            <li class="ms-3"><a class="link-light nodec" href="https://en.wikipedia.org/wiki/Terms_of_service">
+                <p>Terms of Services</p>
+              </a></li>
+            <li class="ms-3 nodec"> | </li>
+            <li class="ms-3"><a class="link-light nodec" href="https://en.wikipedia.org/wiki/Code_of_conduct">
+                <p>Code of Conduct</p>
+              </a></li>
+          </ul>
+        </div>
+      </footer>
+    </div>
+  </div>
+
+
+
+  <!-- Option 1: Bootstrap Bundle with Popper -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+    crossorigin="anonymous"></script>
+
+  <!-- <script src="https://kit.fontawesome.com/b7c76aea7d.js" crossorigin="anonymous"></script> -->
+
+  <script>
+    let dataUser = getCookie("user-data");
+    // console.log(JSON.parse(dataUser)[0]._id)
+    
+    if (dataUser == null) {
+      console.log("data user tidak ditemukan");
+      document.getElementById("username").style.display = "none";
+      document.getElementById("logOut").style.display = "none";
+      document.getElementById("admin").style.display = "none";
+      document.getElementById("userprofile").style.display = "none";
+    } else {
+      document.getElementById("register").style.display = "none";
+      document.getElementById("logIn").style.display = "none";
+      
+      document.getElementById("username").innerHTML = `Hi, ${JSON.parse(getCookie("user-data"))[0].user}`;
+      document.getElementById('userprofile').href = `/userprofile/${JSON.parse(dataUser)[0]._id}`;
+      if(JSON.parse(getCookie("user-data"))[0].user != 'admin'){
+        document.getElementById("admin").style.display = "none";
+      }else{
+        document.getElementById("userprofile").style.display = "none";
+      }
+      
+    }
+    
+    function logOut(){
+      eraseCookie("user-data");
+      window.location.href = "/";
+    }
+
+    function playNow(){
+      if (dataUser == null) {
+        alert("You Haven't logged in yet...");
+        window.location.href = "/login";
+        
+      } else {
+        window.location.href = "/room";
+      }
+    }
+
+    
+    function setCookie(name, value, days) {
+        var expires = "";
+        if (days) {
+          var date = new Date();
+          date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
+          expires = "; expires=" + date.toUTCString();
+        }
+        document.cookie = name + "=" + (value || "") + expires + "; path=/";
+      }
+      function getCookie(name) {
+        var nameEQ = name + "=";
+        var ca = document.cookie.split(";");
+        for (var i = 0; i < ca.length; i++) {
+          var c = ca[i];
+          while (c.charAt(0) == " ") c = c.substring(1, c.length);
+          if (c.indexOf(nameEQ) == 0)
+            return c.substring(nameEQ.length, c.length);
+        }
+        return null;
+      }
+      function eraseCookie(name) {
+        document.cookie =
+          name + "=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;";
+      }
+  </script>
+
+</body>
+
+</html>

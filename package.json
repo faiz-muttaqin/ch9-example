@@ -1,0 +1,34 @@
+{
+  "name": "ch-9-example",
+  "version": "1.0.0",
+  "description": "ini untuk contoh ch9",
+  "main": "server.js",
+  "scripts": {
+    "test": "test",
+    "start": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/faiz-muttaqin/ch9-example.git"
+  },
+  "author": "Faiz Muttaqin",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/faiz-muttaqin/ch9-example/issues"
+  },
+  "homepage": "https://github.com/faiz-muttaqin/ch9-example#readme",
+  "keywords": [
+    "ejs",
+    "mongoDB"
+  ],
+  "dependencies": {
+    "cors": "^2.8.5",
+    "ejs": "^3.1.8",
+    "express": "^4.18.1",
+    "mongoose": "^6.6.0",
+    "morgan": "^1.10.0",
+    "nodemon": "^2.0.19",
+    "socket.io": "^4.5.2",
+    "swagger-ui-express": "^4.5.0"
+  }
+}

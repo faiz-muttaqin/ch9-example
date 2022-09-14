@@ -1,0 +1,99 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="./css/signupStyle.css" />
+  </head>
+  <body>
+    <div id="login-box">
+      <div class="left">
+        <h1 id="signUpText">Sign up</h1>
+
+        <input
+          id="username"
+          type="text"
+          name="username"
+          placeholder="Username"
+        />
+
+        <input id="email" type="text" name="username" placeholder="E-mail" />
+
+        <input
+          id="password1"
+          type="password"
+          name="password1"
+          placeholder="Password"
+        />
+        <input
+          id="password2"
+          type="password"
+          name="password2"
+          placeholder="Retype password"
+        />
+        <h6 id="statusReg"></h6>
+
+        <input
+          onclick="submit()"
+          type="submit"
+          name="signup_submit"
+          value="Sign me up"
+        />
+      </div>
+    </div>
+
+    <script>
+      function submit() {
+        let username = document.getElementById("username").value;
+        let email = document.getElementById("email").value;
+        let pas1 = document.getElementById("password1").value;
+        let pas2 = document.getElementById("password2").value;
+        console.log(`1 ${username} 2 ${email}  3 ${pas1} 4 ${pas2}`);
+
+        if (username || email || pas1 || pas2) {
+          if (pas1 === pas2) {
+            fetch("/signup", {
+              method: "post",
+              headers: { "Content-type": "application/json" },
+              body: JSON.stringify({
+                id: maketoken(5),
+                user: username,
+                email: email,
+                pass: pas1,
+                token: maketoken(16),
+              }),
+            })
+              .then((response) => {
+                return response.json();
+              })
+              .then((result) => {
+                console.log(result);
+                document.getElementById("statusReg").innerHTML =
+                  result.message + "  " + `<a href="./login">Login Now</a>`;
+                document.getElementById("statusReg").style.color = "#FFFF00";
+              })
+              .catch((error) => console.log(error));
+          } else {
+            alert("Password didn't Match");
+          }
+        } else {
+          alert("input cannot Blank");
+        }
+      }
+
+      function maketoken(length) {
+        let result = "";
+        let characters =
+          "ABCDEFGHIJKLMNOPQRSTUVWXYZ-abcdefghijklmnopqrstuvwxyz0123456789";
+        let charactersLength = characters.length;
+        for (let i = 0; i < length; i++) {
+          result += characters.charAt(
+            Math.floor(Math.random() * charactersLength)
+          );
+        }
+        return result;
+      }
+    </script>
+  </body>
+</html>

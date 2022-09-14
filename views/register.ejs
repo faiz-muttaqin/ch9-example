@@ -1,0 +1,173 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="./css/register.css" />
+  </head>
+  <body>
+    <div class="form_wrapper">
+      <div class="form_container">
+        <div class="title_container">
+          <h2>Registration Form</h2>
+        </div>
+        <div class="row clearfix">
+          <div class="">
+            <form method="post" id="register_user">
+              <div class="row clearfix">
+                <div class="col_half">
+                  <div class="input_field">
+                    <span><i aria-hidden="true" class="fa fa-user"></i></span>
+                    <input
+                      type="text"
+                      name="first_name"
+                      id="first_name"
+                      placeholder="First Name"
+                    />
+                  </div>
+                </div>
+                <div class="col_half">
+                  <div class="input_field">
+                    <span><i aria-hidden="true" class="fa fa-user"></i></span>
+                    <input
+                      type="text"
+                      name="last_name"
+                      id="last_name"
+                      placeholder="Last Name"
+                      required
+                    />
+                  </div>
+                </div>
+              </div>
+              <div class="input_field">
+                <span><i aria-hidden="true" class="fa fa-envelope"></i></span>
+                <input
+                  type="email"
+                  name="email"
+                  id="email"
+                  placeholder="Email"
+                  required
+                />
+              </div>
+              <div class="input_field">
+                <span><i aria-hidden="true" class="fa fa-envelope"></i></span>
+                <input
+                  type="text"
+                  name="username"
+                  id="username"
+                  placeholder="Username"
+                  required
+                />
+              </div>
+
+              <div class="input_field">
+                <span><i aria-hidden="true" class="fa fa-lock"></i></span>
+                <input
+                  id="password"
+                  type="password"
+                  name="password"
+                  placeholder="Password"
+                  required
+                />
+              </div>
+              <div class="input_field">
+                <span><i aria-hidden="true" class="fa fa-lock"></i></span>
+                <input
+                  id="confirm_password"
+                  type="password"
+                  name="confirm_password"
+                  placeholder="Re-type Password"
+                  required
+                />
+              </div>
+              <span id="message"></span>
+              <div class="input_field">
+                <span><i aria-hidden="true" class="fa fa-envelope"></i></span>
+                <input
+                  type="text"
+                  name="phone"
+                  id="phone"
+                  placeholder="Phone"
+                  required
+                />
+              </div>
+
+              <div>
+                <label for="start">Date of Birth :</label>
+                <input
+                  type="date"
+                  id="birth"
+                  name="birth"
+                  value="1990-01-01"
+                  min="1970-01-31"
+                  max="2010-01-01"
+                  required
+                />
+              </div>
+
+              <div class="input_field radio_option">
+                <input type="radio" name="gender" id="rd1" value="male" />
+                <label for="rd1">Male</label>
+                <input type="radio" name="gender" id="rd2" value="female" />
+                <label for="rd2">Female</label>
+              </div>
+
+              <div class="input_field">
+                <span><i aria-hidden="true" class="fa fa-envelope"></i></span>
+                <input
+                  type="text"
+                  name="address"
+                  id="address"
+                  placeholder="Address"
+                  required
+                />
+              </div>
+              <input id="myBtn" class="button" type="submit" value="Register" />
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p class="credit">
+      Developed by <a href="/" target="_blank">Faiz Muttaqin</a>
+    </p>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script>
+      $("#password, #confirm_password").on("keyup", function () {
+        if ($("#password").val() === $("#confirm_password").val()) {
+          $("#message").html("Matching").css("color", "green");
+        } else {
+          $("#message").html("Not Matching").css("color", "red");
+        }
+      });
+
+      $("#register_user").submit((event) => {
+        event.preventDefault();
+        let gender = document.getElementsByName("gender");
+        // Simple PUT request with a JSON body using fetch
+        const requestOptions = {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            first_name: document.getElementById("first_name").value,
+            last_name: document.getElementById("last_name").value,
+            email: document.getElementById("email").value,
+            username: document.getElementById("username").value,
+            pass: document.getElementById("password").value,
+            birth: document.getElementById("birth").value,
+            phone: document.getElementById("phone").value,
+            address: document.getElementById("address").value,
+            gender: gender[0].checked ? "male" : "female",
+          }),
+        };
+        fetch("/api/users", requestOptions)
+          .then((response) => response.json())
+          .then((data) => {
+            alert(data.alert);
+            window.location.href = "/";
+          });
+      });
+    </script>
+  </body>
+</html>
