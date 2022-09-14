@@ -13,7 +13,7 @@ app.use("/my-api", swaggerUI.serve, swaggerUI.setup(swaggerJSON));
 
 const io = socketio(server);
 
-const port = 7000;
+const port = process.env.PORT || 7000;
 
 const connectDB = require("./server/database/connection");
 connectDB(); // MongoDB Connection
